@@ -13,6 +13,21 @@ public class User {
     private String lastName;
     private long phoneNumber;
 
+    protected User() {
+
+    }
+
+    public User(String email, String firstName, String lastName, long phoneNumber) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(User user) {
+        this(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber());
+    }
+
     public String getEmail() {
         return email;
     }
