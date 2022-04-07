@@ -21,4 +21,14 @@ public class WebController {
         }
         userRepository.save(user);
     }
+
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public User getUser(@PathVariable("id") final String email){
+        if (!userRepository.existsById(email)){
+            throw new IllegalArgumentException("User with that email doesn't exist");
+        }
+        return userRepository.findById(email).get();
+    }
 }
