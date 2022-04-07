@@ -22,6 +22,18 @@ public class WebController {
         userRepository.save(user);
     }
 
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseBody
+    public User update(@PathVariable("id") final String email, @RequestBody final User user){
+        if (!userRepository.existsById(email)){
+            throw new IllegalArgumentException("User with that email doesn't exist");
+        } else if (!email.equalsIgnoreCase(user.getEmail())) {
+            throw new IllegalArgumentException("email in the URI doesn't match the user email");
+        }
+        return userRepository.save(user);
+    }
+
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
