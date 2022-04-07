@@ -22,7 +22,7 @@ public class WebController {
         userRepository.save(user);
     }
 
-    @PutMapping
+    @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
     public User update(@PathVariable("id") final String email, @RequestBody final User user){
