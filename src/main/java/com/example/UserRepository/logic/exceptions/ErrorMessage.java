@@ -1,4 +1,4 @@
-package com.example.UserRepository.Exceptions;
+package com.example.UserRepository.logic.exceptions;
 
 public class ErrorMessage {
 

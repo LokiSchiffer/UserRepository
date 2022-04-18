@@ -1,8 +1,8 @@
-package com.example.UserRepository.Web;
+package com.example.UserRepository.web;
 
-import com.example.UserRepository.Exceptions.MyUserException;
-import com.example.UserRepository.Model.User;
-import com.example.UserRepository.Repository.UserRepository;
+import com.example.UserRepository.logic.exceptions.MyUserException;
+import com.example.UserRepository.db.model.User;
+import com.example.UserRepository.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

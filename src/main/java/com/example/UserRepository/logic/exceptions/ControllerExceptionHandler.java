@@ -1,4 +1,4 @@
-package com.example.UserRepository.Exceptions;
+package com.example.UserRepository.logic.exceptions;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
