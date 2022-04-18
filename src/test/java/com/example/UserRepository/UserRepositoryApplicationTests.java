@@ -18,7 +18,7 @@ class  UserRepositoryApplicationTests {
 	@Test
 	void WhenSavingNewProject_thenSuccess() {
 		User newUser = new User(randomAlphabetic(16), randomAlphabetic(6),
-				randomAlphabetic(16), 123456789);
+				randomAlphabetic(16), "123456789");
 		assertNotNull(userRepository.save(newUser));
 	}
 

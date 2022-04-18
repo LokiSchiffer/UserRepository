@@ -3,35 +3,38 @@ package com.example.UserRepository.Model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 public class User {
 
     @Id
-    @Email
+    @Email(message = "Email address not valid")
+    @NotEmpty(message = "Email is required")
     private String email;
 
     @Column(nullable = false)
     @Size(max = 50, message = "Firstname out of size")
-    @NotNull
+    @NotNull(message = "Parameter should not be null")
+    @NotEmpty(message = "First name is required")
     private String firstName;
 
     @Column(nullable = false)
-    @Size(max = 50)
-    @NotNull
+    @Size(max = 50, message = "Lastname out of size")
+    @NotNull(message = "Parameter should not be null")
+    @NotEmpty(message = "Last name is required")
     private String lastName;
 
     @Column(nullable = false)
-    private long phoneNumber;
+    @Pattern(regexp = "^\\+503\\d{8}", message = "Invalid number, it has to be in the form of" +
+            " \"+503 ##### ####\"")
+    private String phoneNumber;
 
     protected User() {
 
     }
 
-    public User(String email, String firstName, String lastName, long phoneNumber) {
+    public User(String email, String firstName, String lastName, String phoneNumber) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,11 +64,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
