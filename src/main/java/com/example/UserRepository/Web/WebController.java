@@ -1,5 +1,6 @@
 package com.example.UserRepository.Web;
 
+import com.example.UserRepository.Exceptions.MyUserException;
 import com.example.UserRepository.Model.User;
 import com.example.UserRepository.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class WebController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid User user) {
         if (userRepository.existsById(user.getEmail())){
-            throw new IllegalArgumentException("User is already created");
+            throw new MyUserException("User is already created");
         }
         userRepository.save(user);
     }
@@ -29,9 +30,9 @@ public class WebController {
     @ResponseBody
     public User update(@PathVariable("id") final String email, @RequestBody @Valid final User user){
         if (!userRepository.existsById(email)){
-            throw new IllegalArgumentException("We could not find a user with the given email");
+            throw new MyUserException("We could not find a user with the given email");
         } else if (!email.equalsIgnoreCase(user.getEmail())) {
-            throw new IllegalArgumentException("email in the URI doesn't match the user email");
+            throw new MyUserException("email in the URI doesn't match the user email");
         }
         return userRepository.save(user);
     }
@@ -41,7 +42,7 @@ public class WebController {
     @ResponseBody
     public User find(@PathVariable("id") final String email){
         if (!userRepository.existsById(email)){
-            throw new IllegalArgumentException("We could not find a user with the given email");
+            throw new MyUserException("We could not find a user with the given email");
         }
         return userRepository.findById(email).get();
     }
