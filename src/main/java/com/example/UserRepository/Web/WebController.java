@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/users")
 public class WebController {
@@ -15,7 +17,7 @@ public class WebController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody User user) {
+    public void create(@RequestBody @Valid User user) {
         if (userRepository.existsById(user.getEmail())){
             throw new IllegalArgumentException("User is already created");
         }
@@ -25,9 +27,9 @@ public class WebController {
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
-    public User update(@PathVariable("id") final String email, @RequestBody final User user){
+    public User update(@PathVariable("id") final String email, @RequestBody @Valid final User user){
         if (!userRepository.existsById(email)){
-            throw new IllegalArgumentException("User with that email doesn't exist");
+            throw new IllegalArgumentException("We could not find a user with the given email");
         } else if (!email.equalsIgnoreCase(user.getEmail())) {
             throw new IllegalArgumentException("email in the URI doesn't match the user email");
         }
@@ -37,9 +39,9 @@ public class WebController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public User getUser(@PathVariable("id") final String email){
+    public User find(@PathVariable("id") final String email){
         if (!userRepository.existsById(email)){
-            throw new IllegalArgumentException("User with that email doesn't exist");
+            throw new IllegalArgumentException("We could not find a user with the given email");
         }
         return userRepository.findById(email).get();
     }
