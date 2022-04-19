@@ -1,4 +1,4 @@
-package com.example.UserRepository.web;
+package com.example.UserRepository.web.controller;
 
 import com.example.UserRepository.logic.dto.UserDto;
 import com.example.UserRepository.logic.service.UserService;
