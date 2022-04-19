@@ -1,4 +1,4 @@
-package com.example.UserRepository.config;
+package com.example.UserRepository.web.controller.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Configuration
-@ComponentScan({ "com.example.UserRepository.Web"})
+@ComponentScan({ "com.example.UserRepository.web.controller"})
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
