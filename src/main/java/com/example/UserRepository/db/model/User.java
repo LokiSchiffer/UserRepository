@@ -1,33 +1,25 @@
 package com.example.UserRepository.db.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.*;
+import javax.persistence.*;
 
 @Entity
 public class User {
 
     @Id
-    @Email(message = "Email address not valid")
-    @NotEmpty(message = "Email is required")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "User_Id")
+    private long id;
+
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
-    @Size(max = 50, message = "Firstname out of size")
-    @NotNull(message = "Parameter should not be null")
-    @NotEmpty(message = "First name is required")
     private String firstName;
 
     @Column(nullable = false)
-    @Size(max = 50, message = "Lastname out of size")
-    @NotNull(message = "Parameter should not be null")
-    @NotEmpty(message = "Last name is required")
     private String lastName;
 
     @Column(nullable = false)
-    @Pattern(regexp = "^\\+503\\d{8}", message = "Invalid number, it has to be in the form of" +
-            " \"+503 ##### ####\"")
     private String phoneNumber;
 
     protected User() {
@@ -45,6 +37,9 @@ public class User {
         this(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber());
     }
 
+    public long getId() {
+        return id;
+    }
     public String getEmail() {
         return email;
     }

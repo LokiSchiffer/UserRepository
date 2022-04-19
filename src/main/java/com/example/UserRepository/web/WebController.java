@@ -1,9 +1,7 @@
 package com.example.UserRepository.web;
 
-import com.example.UserRepository.logic.exceptions.MyUserException;
-import com.example.UserRepository.db.model.User;
-import com.example.UserRepository.db.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.UserRepository.logic.dto.UserDto;
+import com.example.UserRepository.logic.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,39 +9,25 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/users")
-public class WebController {
-
-    @Autowired
-    UserRepository userRepository;
+public class WebController extends UserService<UserDto> {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody @Valid User user) {
-        if (userRepository.existsById(user.getEmail())){
-            throw new MyUserException("User is already created");
-        }
-        userRepository.save(user);
+    public void create(@RequestBody @Valid UserDto user) {
+        createInternal(user);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
-    public User update(@PathVariable("id") final String email, @RequestBody @Valid final User user){
-        if (!userRepository.existsById(email)){
-            throw new MyUserException("We could not find a user with the given email");
-        } else if (!email.equalsIgnoreCase(user.getEmail())) {
-            throw new MyUserException("email in the URI doesn't match the user email");
-        }
-        return userRepository.save(user);
+    public UserDto update(@PathVariable("id") final String email, @RequestBody @Valid final UserDto user){
+        return updateInternal(email, user);
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public User find(@PathVariable("id") final String email){
-        if (!userRepository.existsById(email)){
-            throw new MyUserException("We could not find a user with the given email");
-        }
-        return userRepository.findById(email).get();
+    public UserDto find(@PathVariable("id") final String email){
+        return findInternal(email);
     }
 }
