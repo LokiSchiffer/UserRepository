@@ -34,11 +34,22 @@ public abstract class UserService<T extends UserDto> {
         return createUserDto(userRepository.findByEmail(email).get());
     }
 
-    private final User createUser(T userDto){
-        return new User(userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber());
+    private User createUser(T userDto){
+        long id = 0L;
+        if (userRepository.existsByEmail(userDto.getEmail())){
+            id = userRepository.findByEmail(userDto.getEmail()).get().getId();
+        }
+        return createUser(id, userDto);
     }
 
-    private final UserDto createUserDto(User user) {
+    private User createUser(long id, T userDto){
+        User user = new User(userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber());
+        if (id != 0)
+            user.setId(id);
+        return user;
+    }
+
+    private UserDto createUserDto(User user) {
         return new UserDto(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber());
     }
 }
