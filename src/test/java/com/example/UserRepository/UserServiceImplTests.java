@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 @Transactional
 @Rollback
-public class  UserRepositoryApplicationTests {
+public class UserServiceImplTests {
 
 	@Autowired
 	private UserServiceImpl userService;
