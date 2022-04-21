@@ -22,7 +22,7 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    protected User() {
+    public User() {
 
     }
 
@@ -31,10 +31,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-    }
-
-    public User(User user) {
-        this(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber());
     }
 
     public long getId() {
@@ -48,6 +44,11 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }

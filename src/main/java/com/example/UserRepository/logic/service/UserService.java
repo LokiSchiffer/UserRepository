@@ -43,9 +43,16 @@ public abstract class UserService<T extends UserDto> {
     }
 
     private User createUser(long id, T userDto){
-        User user = new User(userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber());
-        if (id != 0)
+        User user;
+        if (id != 0) {
+            user = new User();
+            user.setEmail(userDto.getEmail());
+            user.setFirstName(userDto.getFirstName());
+            user.setLastName(userDto.getLastName());
+            user.setPhoneNumber(userDto.getPhoneNumber());
             user.setId(id);
+        }else
+            user = new User(userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber());
         return user;
     }
 
