@@ -11,11 +11,11 @@ public abstract class UserService<T extends UserDto> {
     @Autowired
     UserRepository userRepository;
 
-    protected final void createInternal(T resource){
+    protected final UserDto createInternal(T resource){
         if (userRepository.existsByEmail(resource.getEmail())){
             throw new MyUserException("User is already created");
         }
-        userRepository.save(createUser(resource));
+        return createUserDto(userRepository.save(createUser(resource)));
     }
 
     protected final UserDto updateInternal(String email, T resource){
