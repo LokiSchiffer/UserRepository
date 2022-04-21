@@ -1,7 +1,9 @@
 package com.example.UserRepository.logic.service;
 
 import com.example.UserRepository.logic.dto.UserDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserServiceImpl extends UserService<UserDto> {
 
     public UserDto createUser(UserDto user){
