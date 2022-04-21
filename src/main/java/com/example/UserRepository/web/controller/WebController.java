@@ -17,8 +17,9 @@ public class WebController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody @Valid UserDto user) {
-        userService.createUser(user);
+    @ResponseBody
+    public UserDto create(@RequestBody @Valid UserDto user) {
+        return userService.createUser(user);
     }
 
     @PutMapping(value = "/{id}")
