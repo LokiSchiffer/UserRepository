@@ -78,4 +78,27 @@ class WebControllerTest {
 
     }
 
+    @Test
+    public void updateUserTest() throws Exception {
+
+        UserDto user = new UserDto();
+
+        user.setEmail("loki@mail.com");
+        user.setFirstName("Norberto");
+        user.setLastName("Mosquera");
+        user.setPhoneNumber("+50312345678");
+
+        doReturn(user).when(userService).updateUser(anyString(), any(UserDto.class));
+
+        mvc.perform(MockMvcRequestBuilders.put("/users/loki@mail.com")
+                        .content(new ObjectMapper().writeValueAsString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("loki@mail.com"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Norberto"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Mosquera"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumber").value("+50312345678"))
+                .andExpect(status().isAccepted());
+
+    }
+
 }
